@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Text, View, TouchableHighlight } from 'react-native';
+import Sound from 'react-native-sound';
+import {Grid, Row} from 'react-native-elements';
 import styles from '../styles';
 
 const drumIcon = require('../../assets/images/drum-icon.png');
@@ -12,14 +14,53 @@ export default class InstrumentMenu extends Component {
     title: 'INSTRUMENTOS',
   };
 
-  playSound(sound){
+  constructor(props) {
+    super(props);
+    this.playSound = this.playSound.bind(this);
+
+    const drum = new Sound('drum.mp3', Sound.MAIN_BUNDLE, this.soundErrorMessage);
+    const flute = new Sound('flute.mp3', Sound.MAIN_BUNDLE, this.soundErrorMessage);
+    const guitar = new Sound('guitar.mp3', Sound.MAIN_BUNDLE, this.soundErrorMessage);
+    const trumpet = new Sound('trumpet.mp3', Sound.MAIN_BUNDLE, this.soundErrorMessage);
+
+    this.state = {
+      sounds: {
+        drum,
+        flute,
+        guitar,
+        trumpet
+      },
+      activeSound: null
+    }
+  }
+
+  soundErrorMessage(error) {
+    console.log("Failed to load sound: ", error);
+  }
+
+  playSound(sound) {
     console.log("Playing sound: ", sound);
+
+    if (this.state.activeSound) {
+      const activeSoundName = this.state.activeSound;
+      this.state.sounds[activeSoundName].stop();
+    }
+
+    this.setState({
+      activeSound: sound
+      }, () => {
+        console.log("Setted active sound, now playing it.", this.state);
+        this.state.sounds[sound].play((success) => {
+          console.log("Sucessfully played!", success);
+        });
+      }
+    );
   }
 
   render() {
     return (
       <View style={styles.landingPage.container}>
-        <Text>MENU!</Text>
+        <Text>MENU</Text>
 
         <TouchableHighlight onPress={() => this.playSound('drum')}>
           <Image source={drumIcon} style={styles.menu.instrumentIcon}/>
