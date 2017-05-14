@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, Text, View, TouchableHighlight } from 'react-native';
 import Sound from 'react-native-sound';
 import {Grid, Row} from 'react-native-elements';
+import musicBackground from '../../assets/images/music-background.png';
 import styles from '../styles';
 
 const drumIcon = require('../../assets/images/drum-icon.png');
@@ -59,25 +60,46 @@ export default class InstrumentMenu extends Component {
 
   render() {
     return (
-      <View style={styles.landingPage.container}>
-        <Text>MENU</Text>
+      <Image source={musicBackground} style={styles.landingPage.backgroundImage} >
+        <Grid>
+          <Row size={25}>
+            <Text style={styles.menu.title}>
+              Instrumentos
+            </Text>
+          </Row>
+          <Row size={25}>
+            <TouchableHighlight
+              onPress={() => this.playSound('drum')}
+              style={styles.menu.instrumentWrapper}
+            >
+              <Image source={drumIcon} style={styles.menu.instrumentIcon}/>
+            </TouchableHighlight>
 
-        <TouchableHighlight onPress={() => this.playSound('drum')}>
-          <Image source={drumIcon} style={styles.menu.instrumentIcon}/>
-        </TouchableHighlight>
+            <TouchableHighlight
+              onPress={() => this.playSound('flute')}
+            >
+              <Image source={fluteIcon} style={styles.menu.instrumentIcon}/>
+            </TouchableHighlight>
+          </Row>
 
-        <TouchableHighlight onPress={() => this.playSound('flute')}>
-          <Image source={fluteIcon} style={styles.menu.instrumentIcon}/>
-        </TouchableHighlight>
+          <Row size={25}>
+            <TouchableHighlight
+              onPress={() => this.playSound('guitar')}
+              style={styles.menu.instrumentWrapper}
+            >
+              <Image source={guitarIcon} style={styles.menu.instrumentIcon}/>
+            </TouchableHighlight>
 
-        <TouchableHighlight onPress={() => this.playSound('guitar')}>
-          <Image source={guitarIcon} style={styles.menu.instrumentIcon}/>
-        </TouchableHighlight>
+            <TouchableHighlight
+              onPress={() => this.playSound('trumpet')}
+            >
+              <Image source={trumpetIcon} style={styles.menu.instrumentIcon}/>
+            </TouchableHighlight>
+          </Row>
 
-        <TouchableHighlight onPress={() => this.playSound('trumpet')}>
-          <Image source={trumpetIcon} style={styles.menu.instrumentIcon}/>
-        </TouchableHighlight>
-      </View>
+          <Row size={25}></Row>
+        </Grid>
+      </Image>
     );
   }
 }
