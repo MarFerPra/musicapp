@@ -7,7 +7,7 @@ import {
   Image
 } from 'react-native';
 
-import musicBackground from '../../assets/images/music-background.png';
+import musicBackground from '../../assets/images/piano-background2.jpg';
 
 import styles from '../styles';
 
@@ -24,17 +24,15 @@ export default class MusicApp extends Component {
           <Text style={styles.landingPage.welcome}>
             MusicApp
           </Text>
-          <Text style={styles.landingPage.description}>
-            Enseñanza de instrumentos musicales para los a más pequeños
-          </Text>
+
           <View>
 
             <Button
               large
+              buttonStyle={styles.landingPage.startButton}
               icon={{
                 name: 'music',
-                type: 'font-awesome',
-                buttonStyle: styles.landingPage.startButton
+                type: 'font-awesome'
               }}
               title='EMPEZAR'
               onPress={() => navigate('Menu')}
